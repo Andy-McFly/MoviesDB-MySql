@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-22">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="drivers"/>
+	<classpathentry kind="lib" path="drivers/mysql-connector-java-8.0.29.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/barcodes-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/commons-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/font-asian-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/forms-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/hyph-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/io-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/kernel-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/layout-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/pdfa-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/pdftest-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/sign-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/slf4j-nop-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/styled-xml-parser-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Mis cosas/Curso/Programación P/Tema 10/svg-7.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/FicherosExcel/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="C:/FicherosExcel/commons-compress-1.19.jar"/>
+	<classpathentry kind="lib" path="C:/FicherosExcel/poi-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/FicherosExcel/poi-ooxml-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/FicherosExcel/poi-ooxml-schemas-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/FicherosExcel/xmlbeans-3.1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
