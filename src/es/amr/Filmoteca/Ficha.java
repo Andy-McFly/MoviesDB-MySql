@@ -2,6 +2,7 @@ package es.amr.Filmoteca;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
@@ -14,13 +15,17 @@ import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class Ficha extends Frame implements WindowListener, ActionListener
+public class Ficha extends Frame implements WindowListener, ActionListener, MouseListener, MouseMotionListener
 {
 	private static final long serialVersionUID = 1L;
-	Vista vista;
+	int clickX, clickY;
+	Modelo modelo = new Modelo();
 	String direc = "";
 	String anio = "";
 	String dura = "";
@@ -60,25 +65,28 @@ public class Ficha extends Frame implements WindowListener, ActionListener
 	Dimension dimensionBtn = new Dimension(110, 32);
 	Font fntButton = new Font("Arial", Font.BOLD, 13);
 	
-	public Ficha(String d, String a, String s, String t, String dur) 
+	public Ficha(String d, String a, String s, String t, String dur, String url) 
 	{
 		titulo = t;
 		direc = d;
 		anio = a;
 		seccion = s;
-		duracion = dur;		
+		duracion = dur;
+		enlace = url;
 		herramienta = getToolkit();
 		poster = herramienta.getImage("posters\\" + titulo + ".png");
 		
 		addWindowListener(this);
 		vModificar.addWindowListener(this);
+		addMouseListener(this);
+		addMouseMotionListener(this);
 		btnEditar.addActionListener(this);
 		btnAceptar.addActionListener(this);
 		btnVolver.addActionListener(this);
 		
 		// VENTANA Ficha
 		setLayout(null);
-		setSize(1092, 678);
+		setSize(1192, 678);
 		setTitle(titulo);
 		setBackground(new Color(48, 48, 48));
 		setResizable(true);
@@ -101,7 +109,7 @@ public class Ficha extends Frame implements WindowListener, ActionListener
 		txfDirector.setText(direc);
 		txfDuracion.setText(duracion);
 		txfSeccion.setText(seccion);
-		txfUrl.setText("");
+		txfUrl.setText(enlace);
 		panelTitulo.add(txfTitulo);
 		lblTitulo.setAlignment(Label.CENTER);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -159,6 +167,7 @@ public class Ficha extends Frame implements WindowListener, ActionListener
 		g.drawString(direc, 710, 120);
 		g.drawString(anio, 762, 170);
 		g.drawString(duracion + " min.", 680 + 28, 220);
+		g.drawString(enlace, 689, 270);
 		g.drawString(seccion, 669 + 28, 320);
 	}
 	
@@ -184,6 +193,32 @@ public class Ficha extends Frame implements WindowListener, ActionListener
 	}
 	
 	@Override
+	public void mouseClicked(MouseEvent me)
+	{
+		clickX = me.getX();
+		clickY = me.getY();
+		if(clickX >= 690 && clickX <= 1145 && clickY >= 253 && clickY <= 272) 
+		{
+			modelo.web(enlace);
+		}
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent me)
+	{
+		clickX = me.getX();
+		clickY = me.getY();
+		if(clickX >= 690 && clickX <= 1145 && clickY >= 253 && clickY <= 272) 
+		{
+			setCursor(new Cursor(Cursor.HAND_CURSOR));
+		}
+		else 
+		{
+			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
+	
+	@Override
 	public void windowClosing(WindowEvent e)
 	{
 		// VENTANA Ficha
@@ -201,4 +236,7 @@ public class Ficha extends Frame implements WindowListener, ActionListener
 	@Override public void windowActivated(WindowEvent e){}@Override public void windowClosed(WindowEvent e){}
 	@Override public void windowDeactivated(WindowEvent e){}@Override public void windowDeiconified(WindowEvent e){}
 	@Override public void windowIconified(WindowEvent e){}@Override public void windowOpened(WindowEvent e){}
+	@Override public void mousePressed(MouseEvent e){}@Override public void mouseReleased(MouseEvent e){}
+	@Override public void mouseEntered(MouseEvent e){}@Override public void mouseExited(MouseEvent e){}
+	@Override public void mouseDragged(MouseEvent e){}
 }

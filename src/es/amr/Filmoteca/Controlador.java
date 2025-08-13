@@ -265,8 +265,9 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			String s = modelo.seccionPeli(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			String t = modelo.nombrePeli(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			String dur = modelo.duracion(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
+			String url = modelo.enlace(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			modelo.desconectar(connection);
-			new Ficha(d, a, s, t, dur);
+			new Ficha(d, a, s, t, dur, url);
 		}
 		catch(NullPointerException npe){}
 	}

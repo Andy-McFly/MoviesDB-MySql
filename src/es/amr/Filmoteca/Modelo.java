@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -451,7 +452,29 @@ public class Modelo
 		return duracion;
 	}
 	
-//----------------------Exportar----------------------
+	public String enlace(Connection connection, int id) 
+	{
+		String enlace = "";
+		
+		try
+		{
+			sentencia = "SELECT enlacePelicula FROM peliculas WHERE idPelicula = " + id;
+			statement = connection.createStatement();
+			resultset = statement.executeQuery(sentencia);
+			if (resultset.next())
+			{
+				enlace = resultset.getString("enlacePelicula");
+			}
+		} 
+		catch (SQLException e)
+		{
+			System.out.println("Error en la sentencia SQL");
+		}
+		
+		return enlace;
+	}
+	
+//----------------------Varios----------------------
 	// EXCEL
 	public boolean excel(Connection connection) 
 	{
@@ -486,41 +509,37 @@ public class Modelo
 				fila++;
 			}
 
-			// Poner en negrita la cabecera
 			CellStyle style = libro.createCellStyle();
 			XSSFFont font = libro.createFont();
 			font.setBold(true);
 			style.setFont(font);
-			// Generar los datos para el fichero
 			for (int i = 0; i <= document.length; i++)
 			{
-				XSSFRow row = hoja1.createRow(i); // Se crean las filas
+				XSSFRow row = hoja1.createRow(i);
 				for (int j = 0; j < header.length; j++)
 				{
 					if (i == 0)
-					{ 	// Para la cabecera
-						XSSFCell cell = row.createCell(j); // Se crean las celdas para la cabecera, junto con la posición
-						cell.setCellStyle(style); // Se añade el style creado anteriormente
-						cell.setCellValue(header[j]); // Se añade la cabecera
+					{ 	
+						XSSFCell cell = row.createCell(j); 
+						cell.setCellStyle(style); 
+						cell.setCellValue(header[j]);
 					} 
 					else
-					{ 	// Para el contenido
-						XSSFCell cell = row.createCell(j); // Se crean las celdas para el contenido, junto con la posición
-						cell.setCellValue(document[i - 1][j]); // Se añade el contenido
+					{ 	
+						XSSFCell cell = row.createCell(j); 
+						cell.setCellValue(document[i - 1][j]); 
 					}
 				}
 			}
-			// Crear el fichero
 			File file;
 			file = new File(rutaArchivo);
 			try (FileOutputStream fileOuS = new FileOutputStream(file))
 			{
 				if (file.exists())
-				{ 	// Si el archivo ya existe, se elimina
+				{ 	
 					file.delete();
 					System.out.println("Archivo eliminado");
 				}
-				// Se guarda la información en el fichero
 				libro.write(fileOuS);
 				fileOuS.flush();
 				fileOuS.close();
@@ -584,5 +603,27 @@ public class Modelo
 			resultado = false;
 		}
 		return resultado;
+	}
+	
+	// Enlace web
+	public void web(String enlace) 
+	{
+		String URL = enlace;
+		
+		if (java.awt.Desktop.isDesktopSupported())
+		{
+			java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+			if (desktop.isSupported(java.awt.Desktop.Action.BROWSE))
+			{
+				try
+				{
+					java.net.URI uri = new java.net.URI(URL);
+					desktop.browse(uri);
+				} catch (URISyntaxException | IOException ex)
+				{
+					System.out.println(ex.getMessage());
+				}
+			}
+		}
 	}
 }

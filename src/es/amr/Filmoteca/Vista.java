@@ -30,7 +30,6 @@ public class Vista extends Frame
 	Image btnAdd;
 	Image btnAddClick;
 	Toolkit herramienta;
-	Modelo modelo = new Modelo();
 	Connection connection = null;
 	
 //--------------------VENTANA Menú Principal--------------------
@@ -104,10 +103,12 @@ public class Vista extends Frame
 	Dialog dlgExportar = new Dialog(vLista, "Exportación completada", true);
 	Label lblExportar = new Label("Archivo creado");
 	Label lblExportar2 = new Label("Ir a la carpeta");
+	Panel pnlExportar = new Panel();
 	
 	Dimension dimensionBtn2 = new Dimension(110, 32);
 	Dimension dimensionBtn = new Dimension(60, 22);
 	Font fntButton = new Font("Arial", Font.BOLD, 13);
+	Font fntExport = new Font("Arial", Font.BOLD, 15);
 	Color clrButton = new Color(189, 200, 255);
 	
 	public Vista() 
@@ -266,17 +267,21 @@ public class Vista extends Frame
 		feedback.add(mensaje);
 		feedback.setLocationRelativeTo(null);
 		
-		// DIÁLOGO Auxiliar
+		// DIÁLOGO Exportar
 		dlgExportar.setLayout(new GridLayout(2,1));
 		dlgExportar.setSize(260, 150);
 		dlgExportar.setResizable(false);
 		lblExportar.setAlignment(Label.CENTER);
+		lblExportar.setFont(fntExport);
+		lblExportar2.setFont(fntExport);
+		lblExportar2.setPreferredSize(new Dimension(105,20));
 		lblExportar2.setAlignment(Label.CENTER);
 		lblExportar2.setForeground(Color.BLUE);
-		lblExportar2.setBackground(clrButton);
+		lblExportar2.setBackground(Color.lightGray);
 		lblExportar2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnlExportar.add(lblExportar2);
 		dlgExportar.add(lblExportar);
-		dlgExportar.add(lblExportar2);
+		dlgExportar.add(pnlExportar);
 		dlgExportar.setLocationRelativeTo(null);
 	}
 	
