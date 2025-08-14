@@ -96,7 +96,7 @@ public class Vista extends Frame
 	Panel panelTotal2 = new Panel();
 	
 	// DIÁLOGO Auxiliar
-	Dialog feedback = new Dialog(vAnadir, "Registro completo", true);
+	Dialog feedback = new Dialog(vAnadir, "Éxito", true);
 	Label mensaje = new Label("Película registrada con éxito");
 	
 	// DIÁLOGO Éxito Exportar

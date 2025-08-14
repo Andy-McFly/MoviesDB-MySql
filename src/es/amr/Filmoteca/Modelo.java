@@ -217,7 +217,26 @@ public class Modelo
 		return resultado;
 	}
 	
-	/*Modificación película*/
+	public boolean modificarPelicula(Connection connection, int id, String titulo, 
+			String anio, String direc, String seccion, String duracion, String url)
+	{
+		boolean resultado = false;
+		sentencia = "UPDATE peliculas SET tituloPelicula = '" + titulo + "', anioPelicula = " + anio + 
+				", directorPelicula = '" + direc + "', seccionPelicula = " + seccion + ", enlacePelicula = '" + url + 
+				"', duracionPelicula = " + duracion + " WHERE idPelicula = " + id + ";";
+		try
+		{
+			statement = connection.createStatement();
+			statement.executeUpdate(sentencia);
+			System.out.println(sentencia);
+			resultado = true;
+		}
+		catch (SQLException sqle)
+		{
+			resultado = false;
+		}
+		return resultado;
+	}
 	
 //----------------------Búsqueda----------------------
 	// Búsqueda - Mostrar todo

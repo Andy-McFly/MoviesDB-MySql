@@ -260,6 +260,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		try
 		{
 			connection = modelo.conectar();
+			int id = Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]);
 			String d = modelo.direccion(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			String a = modelo.estreno(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			String s = modelo.seccionPeli(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
@@ -267,7 +268,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			String dur = modelo.duracion(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			String url = modelo.enlace(connection, Integer.parseInt(vista.liBusqueda.getSelectedItem().split(" -- ")[0]));
 			modelo.desconectar(connection);
-			new Ficha(d, a, s, t, dur, url);
+			new Ficha(id, d, a, s, t, dur, url);
 		}
 		catch(NullPointerException npe){}
 	}

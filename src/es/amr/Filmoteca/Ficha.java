@@ -3,7 +3,9 @@ package es.amr.Filmoteca;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -20,12 +22,14 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Connection;
 
 public class Ficha extends Frame implements WindowListener, ActionListener, MouseListener, MouseMotionListener
 {
 	private static final long serialVersionUID = 1L;
-	int clickX, clickY;
 	Modelo modelo = new Modelo();
+	int clickX, clickY;
+	int idPelicula;
 	String direc = "";
 	String anio = "";
 	String dura = "";
@@ -33,11 +37,12 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 	String seccion = "";
 	String duracion = "";
 	String titulo = "Título de la película";
-	Button btnEditar = new Button("Editar");
 	Font fntInfo = new Font("Calibri", Font.BOLD, 20);
 	Image poster;
 	Toolkit herramienta;
+	Connection connection = null;
 	
+	Button btnEditar = new Button("Editar");
 	// VENTANA Editar datos
 	Frame vModificar = new Frame("Editando datos");
 	Label lblTitulo = new Label("Título:");
@@ -61,12 +66,16 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 	Button btnAceptar = new Button("Modificar");
 	Button btnVolver = new Button("Volver");
 	Panel panelBotonesModificar = new Panel();
+	// DIÁLOGO Auxiliar
+	Dialog dlgMod = new Dialog(vModificar, "Éxito", true);
+	Label lblMod = new Label("Datos de la película modificados");
 	
 	Dimension dimensionBtn = new Dimension(110, 32);
 	Font fntButton = new Font("Arial", Font.BOLD, 13);
 	
-	public Ficha(String d, String a, String s, String t, String dur, String url) 
+	public Ficha(int id, String d, String a, String s, String t, String dur, String url) 
 	{
+		idPelicula = id;
 		titulo = t;
 		direc = d;
 		anio = a;
@@ -78,6 +87,7 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 		
 		addWindowListener(this);
 		vModificar.addWindowListener(this);
+		dlgMod.addWindowListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		btnEditar.addActionListener(this);
@@ -150,6 +160,12 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 		panelBotonesModificar.add(btnAceptar);
 		panelBotonesModificar.add(btnVolver);
 		vModificar.add(panelBotonesModificar);
+		// DIÁLOGO Auxiliar
+		dlgMod.setLayout(new FlowLayout());
+		dlgMod.setSize(240, 100);
+		dlgMod.setResizable(false);
+		dlgMod.add(lblMod);
+		dlgMod.setLocationRelativeTo(null);
 	}
 	
 	// VENTANA Ficha
@@ -183,7 +199,18 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 		// VENTANA Editar datos
 		else if (e.getSource().equals(btnAceptar))
 		{
-			
+			String tituloMod = txfTitulo.getText();
+			String anioMod = txfAnio.getText();
+			String direcMod = txfDirector.getText();
+			String seccionMod = txfSeccion.getText();
+			String duracionMod = txfDuracion.getText();
+			String enlaceMod = txfUrl.getText();
+			connection = modelo.conectar();
+			if(modelo.modificarPelicula(connection, idPelicula, tituloMod, anioMod, direcMod, seccionMod, duracionMod, enlaceMod)) 
+			{
+				dlgMod.setVisible(true);
+			}
+			modelo.desconectar(connection);
 		}
 		
 		else if (e.getSource().equals(btnVolver))
@@ -230,6 +257,10 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 		else if (e.getSource().equals(vModificar))
 		{
 			vModificar.dispose();
+		}
+		else if (e.getSource().equals(dlgMod))
+		{
+			dlgMod.dispose();
 		}
 	}
 	
