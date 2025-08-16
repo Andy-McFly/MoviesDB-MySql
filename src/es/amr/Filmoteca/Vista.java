@@ -27,8 +27,7 @@ public class Vista extends Frame
 	int totalPeliculas = 0;
 	private static final long serialVersionUID = 1L;
 	Image titulo;
-	Image btnAdd;
-	Image btnAddClick;
+	Image icono;
 	Toolkit herramienta;
 	Connection connection = null;
 	
@@ -58,8 +57,10 @@ public class Vista extends Frame
 	Label lblUrl = new Label("URL:");
 	TextField txfUrl = new TextField(30);
 	Panel panelUrl = new Panel();
+	Button btnPoster = new Button("  Portada  ");
 	Button btnAceptar = new Button("Aceptar");
 	Button btnVolver = new Button("Volver");
+	Panel panelBotonesPoster = new Panel();
 	Panel panelBotonesAnadir = new Panel();
 	
 //--------------------VENTANA Ver Lista--------------------
@@ -115,8 +116,10 @@ public class Vista extends Frame
 	{
 		herramienta = getToolkit();
 		titulo = herramienta.getImage("img\\titulo.png");
+		icono = herramienta.getImage("img\\icono.png");
 		
 		// VENTANA Menú Principal
+		setIconImage(icono);
 		setTitle("Filmoteca");
 		setLayout(null);
 		setSize(700, 350);
@@ -143,7 +146,8 @@ public class Vista extends Frame
 		setVisible(true);
 		
 		// VENTANA Añadir Película
-		vAnadir.setLayout(new GridLayout(13, 1));
+		vAnadir.setIconImage(icono);
+		vAnadir.setLayout(new GridLayout(14, 1));
 		vAnadir.setSize(450, 600);
 		vAnadir.setBackground(Color.gray);
 		vAnadir.setResizable(true);
@@ -178,6 +182,10 @@ public class Vista extends Frame
 		lblUrl.setAlignment(Label.CENTER);
 		lblUrl.setFont(new Font("Arial", Font.PLAIN, 13));
 		vAnadir.add(panelUrl);
+		btnPoster.setFont(fntButton);
+		btnPoster.setBackground(clrButton);
+		panelBotonesPoster.add(btnPoster);
+		vAnadir.add(panelBotonesPoster);
 		btnAceptar.setPreferredSize(dimensionBtn2);
 		btnAceptar.setFont(fntButton);
 		btnAceptar.setBackground(Color.lightGray);
@@ -190,6 +198,7 @@ public class Vista extends Frame
 		vAnadir.add(panelBotonesAnadir);
 		
 		// VENTANA Ver Lista
+		vLista.setIconImage(icono);
 		vLista.setLayout(new BorderLayout());
 		vLista.setSize(900, 700);
 		vLista.setBackground(Color.gray);
@@ -217,6 +226,7 @@ public class Vista extends Frame
 		vLista.add(panelListaBtn1, BorderLayout.SOUTH);
 		
 		// VENTANA Buscar
+		vBuscar.setIconImage(icono);
 		vBuscar.setLayout(new GridLayout(3, 1));
 		vBuscar.setSize(450, 250);
 		vBuscar.setBackground(Color.gray);
@@ -240,6 +250,7 @@ public class Vista extends Frame
 		vBuscar.add(panelBuscar3);
 		
 			// Ventana Resultado Búsqueda
+		vBusqueda.setIconImage(icono);
 		vBusqueda.setLayout(new BorderLayout());
 		vBusqueda.setSize(450, 490);
 		vBusqueda.setBackground(Color.gray);

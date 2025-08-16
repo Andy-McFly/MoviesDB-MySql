@@ -19,6 +19,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 	Vista vista;
 	Connection connection = null;
 	String rutaCarpeta = "Listas";
+	String rutaPosters = "posters";
 	
 	public Controlador(Modelo m, Vista v) 
 	{
@@ -39,6 +40,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		v.btnExcel.addActionListener(this);
 		v.btnCSV.addActionListener(this);
 		v.btnSalir.addActionListener(this);
+		v.btnPoster.addActionListener(this);
 		v.btnVolver.addActionListener(this);
 		v.btnAceptar.addActionListener(this);
 		v.btnBuscarBuscar.addActionListener(this);
@@ -119,6 +121,15 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		}
 		
 	//VENTANA Añadir película
+		else if(e.getSource().equals(vista.btnPoster)) 
+		{
+			try 
+			{
+	            Desktop.getDesktop().open(new File(rutaPosters).getAbsoluteFile());
+	        } 
+			catch (IOException ex){}
+		}
+		
 		else if(e.getSource().equals(vista.btnAceptar)) 
 		{
 			if (!vista.txfTitulo.getText().isEmpty()) 
@@ -153,6 +164,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				vista.feedback.setVisible(true);
 			}
 		}
+		
 		else if(e.getSource().equals(vista.btnVolver)) 
 		{
 			vista.vAnadir.dispose();
@@ -280,10 +292,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		{
             Desktop.getDesktop().open(new File(rutaCarpeta).getAbsoluteFile());
         } 
-		catch (IOException ex) 
-		{
-            ex.printStackTrace();
-        }
+		catch (IOException ex){}
 	}
 	
 	@Override

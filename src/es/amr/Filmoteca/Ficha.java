@@ -3,6 +3,7 @@ package es.amr.Filmoteca;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,6 +23,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 
 public class Ficha extends Frame implements WindowListener, ActionListener, MouseListener, MouseMotionListener
@@ -38,11 +41,13 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 	String duracion = "";
 	String titulo = "Título de la película";
 	Font fntInfo = new Font("Calibri", Font.BOLD, 20);
+	Image icono;
 	Image poster;
 	Toolkit herramienta;
 	Connection connection = null;
 	
 	Button btnEditar = new Button("Editar");
+	Button btnPoster = new Button("Carpeta Pósters");
 	// VENTANA Editar datos
 	Frame vModificar = new Frame("Editando datos");
 	Label lblTitulo = new Label("Título:");
@@ -83,6 +88,7 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 		duracion = dur;
 		enlace = url;
 		herramienta = getToolkit();
+		icono = herramienta.getImage("img\\icono.png");
 		poster = herramienta.getImage("posters\\" + titulo + ".png");
 		
 		addWindowListener(this);
@@ -91,24 +97,30 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		btnEditar.addActionListener(this);
+		btnPoster.addActionListener(this);
 		btnAceptar.addActionListener(this);
 		btnVolver.addActionListener(this);
 		
 		// VENTANA Ficha
+		setIconImage(icono);
 		setLayout(null);
 		setSize(1192, 678);
 		setTitle(titulo);
 		setBackground(new Color(48, 48, 48));
 		setResizable(true);
 		setLocationRelativeTo(null);
+		btnPoster.setFont(new Font("Calibri", Font.BOLD, 13));
+		btnPoster.setBounds(602, 370, 125, 30);
 		btnEditar.setBackground(new Color(85, 84, 138));
 		btnEditar.setForeground(Color.white);
 		btnEditar.setBounds(602, 540, 125, 45);
 		btnEditar.setFont(new Font("Calibri", Font.BOLD, 25));
+		add(btnPoster);
 		add(btnEditar);
 		setVisible(true);
 		
 		// VENTANA Editar datos
+		vModificar.setIconImage(icono);
 		vModificar.setLayout(new GridLayout(13, 1));
 		vModificar.setSize(450, 600);
 		vModificar.setBackground(Color.gray);
@@ -196,17 +208,28 @@ public class Ficha extends Frame implements WindowListener, ActionListener, Mous
 			vModificar.setVisible(true);
 		}
 		
+		else if (e.getSource().equals(btnPoster))
+		{
+			String rutaPosters = "posters";
+			try 
+			{
+	            Desktop.getDesktop().open(new File(rutaPosters).getAbsoluteFile());
+	        } 
+			catch (IOException ex){}
+		}
+		
 		// VENTANA Editar datos
 		else if (e.getSource().equals(btnAceptar))
 		{
-			String tituloMod = txfTitulo.getText();
-			String anioMod = txfAnio.getText();
-			String direcMod = txfDirector.getText();
-			String seccionMod = txfSeccion.getText();
-			String duracionMod = txfDuracion.getText();
-			String enlaceMod = txfUrl.getText();
+			titulo = txfTitulo.getText();
+			anio = txfAnio.getText();
+			direc = txfDirector.getText();
+			seccion = txfSeccion.getText();
+			duracion = txfDuracion.getText();
+			enlace = txfUrl.getText();
+			repaint();
 			connection = modelo.conectar();
-			if(modelo.modificarPelicula(connection, idPelicula, tituloMod, anioMod, direcMod, seccionMod, duracionMod, enlaceMod)) 
+			if(modelo.modificarPelicula(connection, idPelicula, titulo, anio, direc, seccion, duracion, enlace)) 
 			{
 				dlgMod.setVisible(true);
 			}
