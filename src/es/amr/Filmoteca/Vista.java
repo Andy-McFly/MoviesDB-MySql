@@ -36,6 +36,7 @@ public class Vista extends Frame
 	Button btnBuscar = new Button("Buscar");
 	Button btnLista = new Button("Ver Lista");
 	Button btnSalir = new Button(" Salir ");
+	Button btnAyuda = new Button(" Ayuda ");
 	
 //--------------------VENTANA Añadir Película--------------------
 	Frame vAnadir = new Frame("Añadir Película");
@@ -120,7 +121,7 @@ public class Vista extends Frame
 		
 		// VENTANA Menú Principal
 		setIconImage(icono);
-		setTitle("Filmoteca");
+		setTitle("Movies Data Base");
 		setLayout(null);
 		setSize(700, 350);
 		setBackground(new Color(48, 48, 48));
@@ -143,6 +144,8 @@ public class Vista extends Frame
 		btnSalir.setForeground(Color.white);
 		btnSalir.setBackground(Color.darkGray);
 		add(btnSalir);
+		btnAyuda.setBounds(600, 296, 50, 20);
+		add(btnAyuda);
 		setVisible(true);
 		
 		// VENTANA Añadir Película

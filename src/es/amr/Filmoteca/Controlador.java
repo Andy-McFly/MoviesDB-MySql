@@ -40,6 +40,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 		v.btnExcel.addActionListener(this);
 		v.btnCSV.addActionListener(this);
 		v.btnSalir.addActionListener(this);
+		v.btnAyuda.addActionListener(this);
 		v.btnPoster.addActionListener(this);
 		v.btnVolver.addActionListener(this);
 		v.btnAceptar.addActionListener(this);
@@ -90,6 +91,13 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 			vista.txfBuscar.setText("");
 			vista.vBuscar.setVisible(true);
 		}
+		//BOTÓN Ayuda
+		else if (e.getSource().equals(vista.btnAyuda)) 
+		{
+			String ayudaWeb = "https://andy-mcfly.github.io/MoviesDB-Ayuda.github.io/";
+			modelo.web(ayudaWeb);
+		}
+		
 	//VENTANA Ver Lista
 		else if (e.getSource().equals(vista.btnExcel)) 
 		{
@@ -267,7 +275,7 @@ public class Controlador implements WindowListener, ActionListener, MouseListene
 				}
 			}
 		}
-		// VENTANA Resultado búsqueda
+	// VENTANA Resultado búsqueda
 		else if(e.getSource().equals(vista.btnVerFicha)) 
 		try
 		{
